@@ -1,0 +1,7 @@
+[workstations]
+#workstation[1:90]
+workstation-001
+
+[passwordme:children]
+workstations
+

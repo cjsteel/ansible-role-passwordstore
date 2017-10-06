@@ -52,7 +52,7 @@ ssh-keygen -f "$HOME/.ssh/known_hosts" -R 192.168.11.22
 ### Ansible command example
 
 ```shell
-ansible-playbook systems.yml -i inventory/dev --ask-vault-pass -v --limit workstation-001
+ansible-playbook passwordstore_create.yml -i inventory/dev --ask-become-pass -v --limit workstation-001
 ```
 
 ## Options
