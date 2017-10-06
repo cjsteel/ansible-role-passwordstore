@@ -1,0 +1,42 @@
+---
+# file: roles/clone/tests/vagrant.yml
+
+- hosts: all
+  remote_user: ubuntu
+  become: false # or local directory creation will fail
+  pre_tasks:
+
+
+    - set_fact: fact_controller_user="{{ lookup('env','USER') }}"
+    - debug: var=fact_controller_user
+
+    - set_fact: fact_controller_home="{{ lookup('env','HOME') }}"
+    - debug: var=fact_controller_home
+
+    - set_fact: fact_role_path="{{ lookup('pipe','pwd')|dirname }}"
+    - debug: var=fact_role_path
+
+    - set_fact: fact_role_name="{{ lookup('pipe','pwd')|dirname|basename }}"
+    - debug: var=fact_role_name2
+
+  vars:
+
+    - clone_remote_user : 'ubuntu'
+
+
+    - clone_state         : 'present'
+    - clone_build         : false
+    - clone_reboot_target : false
+
+
+    - clone_git_version        : 'v2.1.0'
+    - clone_git_url            : 'git://github.com/stnava/clone.git'
+    - clone_git_parent_dir     : '~/bin'
+    - clone_git_target_dir     : 'acemenu'
+    - clone_git_target_path    : '~/bin/acemenu'
+
+  roles:
+    - ../../
+
+  
+

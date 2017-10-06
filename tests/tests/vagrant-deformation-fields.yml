@@ -1,0 +1,39 @@
+---
+# file: roles/deformation_fields/tests/vagrant.yml
+
+- hosts: all
+  remote_user: ubuntu
+  become: false # or local directory creation will fail
+  pre_tasks:
+
+    - set_fact: fact_controller_user="{{ lookup('env','USER') }}"
+    - debug: var=fact_controller_user
+
+    - set_fact: fact_controller_home="{{ lookup('env','HOME') }}"
+    - debug: var=fact_controller_home
+
+  vars:
+
+    - deformation_fields_remote_user : 'ubuntu'
+
+
+    - deformation_fields_state         : 'present'
+    - deformation_fields_build         : false
+    - deformation_fields_reboot_target : false
+
+
+    - deformation_fields_git_version        : 'v2.1.0'
+    - deformation_fields_git_url            : 'git://github.com/stnava/deformation_fields.git'
+    - deformation_fields_dir_path           : '~/bin/deformation_fields'
+    - deformation_fields_src_path           : '~/src/deformation_fields'
+
+    - deformation_fields_directory_state    : 'directory'
+    - deformation_fields_owner              : 'deformation_fields_remote_user }}'
+    - deformation_fields_group              : 'deformation_fields_remote_user }}'
+    - deformation_fields_mode               : '0755'
+
+  roles:
+    - ../../
+
+  
+
